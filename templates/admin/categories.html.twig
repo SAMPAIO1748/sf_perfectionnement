@@ -1,0 +1,16 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+
+	{% for category in categories %}
+
+		<h2>
+			<a href="{{ path('admin_category_show', {'id' : category.id }) }}">{{ category.name }}
+			</a>
+		</h2>
+
+
+	{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "front/base.html.twig" %}
+
+{% block main %}
+
+	{% for writer in writers %}
+		<h2>
+			<a href="{{ path("writer_show", {'id' : writer.id } ) }}">{{writer.name}}
+				{{ writer.firstname }}</a>
+		</h2>
+
+	{% endfor %}
+
+{% endblock %}

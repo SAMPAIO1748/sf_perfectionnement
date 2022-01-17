@@ -1,0 +1,12 @@
+{% extends "front/base.html.twig" %}
+
+{% block main %}
+
+	{% for category in categories %}
+		<h2>
+			<a href="{{ path("category_show", {'id' : category.id } ) }}">{{category.name}}</a>
+		</h2>
+
+	{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "front/base.html.twig" %}
+
+{% block main %}
+
+	{% for article in articles %}
+		{% if article.published %}
+			<h2>{{ article.title }}</h2>
+			<h3>{{ article.date | date('d/m/Y') }}</h3>
+			<h3>{{ article.category.name }}</h3>
+			<h4>{{ article.writer.name }}
+				{{ article.writer.firstname }}</h4>
+		{% endif %}
+	{% endfor %}
+
+{% endblock %}
