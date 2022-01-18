@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
         // Récupérer les données rentrées dans le formulaire
         $term = $request->query->get('term');
         // query correspond à l'outil qui permet de récupérer les données d'un formulaire en get
-        // pour un formulaire en post on utilise query
+        // pour un formulaire en post on utilise request
 
         $articles = $articleRepository->searchByTerm($term);
 
