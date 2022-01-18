@@ -1,0 +1,14 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+
+	<h1>Le résultat de la recherche
+		{{ term }}
+		est :</h1>
+
+	{% for writer in writers %}
+		<h2>{{ writer.name }}
+			{{ writer.firstname }}</h2>
+	{% endfor %}
+
+{% endblock %}
