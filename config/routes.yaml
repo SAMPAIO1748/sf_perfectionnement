@@ -49,3 +49,39 @@ category_list:
 category_show:
   path: category/{id}
   controller: App\Controller\Front\CategoryController::categoryShow
+
+admin_category_list:
+  path: admin/categories
+  controller: App\Controller\Admin\AdminCategoryController::adminListCategory
+
+admin_category_create:
+  path: admin/create/category/
+  controller: App\Controller\Admin\AdminCategoryController::adminCategoryCreate
+
+admin_delete_category:
+  path: admin/delete/category/{id}
+  controller: App\Controller\Admin\AdminCategoryController::adminDeleteCategory
+
+admin_category_show:
+  path: admin/category/{id}
+  controller: App\Controller\Admin\AdminCategoryController::adminShowCategory
+
+article_list:
+  path: articles
+  controller: App\Controller\Front\ArticleController::articleList
+
+article_show:
+  path: article/{id}
+  controller: App\Controller\Front\ArticleController::articleShow
+
+front_search:
+  path: search
+  controller: App\Controller\Front\ArticleController::frontSearch
+
+writer_list:
+  path: writers
+  controller: App\Controller\Front\WriterController::writerList
+
+writer_show:
+  path: writer/{id}
+  controller: App\Controller\Front\WriterController::writerShow
