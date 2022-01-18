@@ -74,7 +74,7 @@ class AdminWriterController extends AbstractController
                 ->from('test@test.com')
                 ->to('test@test.fr')
                 ->subject('Création d\'un auteur')
-                ->html('<p>Vous êtes un nouvel auteur su le projet');
+                ->html('<p>Vous êtes un nouvel auteur su le projet</p>');
 
             $mailerInterface->send($email);
 
