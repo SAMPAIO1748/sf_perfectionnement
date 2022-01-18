@@ -7,9 +7,9 @@ use App\Form\WriterType;
 use App\Repository\WriterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class AdminWriterController extends AbstractController
 {
@@ -55,7 +55,8 @@ class AdminWriterController extends AbstractController
 
     public function adminWriterCreate(
         Request $request,
-        EntityManagerInterface $entityManagerInterface
+        EntityManagerInterface $entityManagerInterface,
+        MailerInterface $mailerInterface
     ) {
         $writer = new Writer();
 
@@ -68,6 +69,14 @@ class AdminWriterController extends AbstractController
 
             $entityManagerInterface->persist($writer);
             $entityManagerInterface->flush();
+
+            $email = (new Email())
+                ->from('test@test.com')
+                ->to('test@test.fr')
+                ->subject('Création d\'un auteur')
+                ->html('<p>Vous êtes un nouvel auteur su le projet');
+
+            $mailerInterface->send($email);
 
             return $this->redirectToRoute("admin_writer_list");
         }
