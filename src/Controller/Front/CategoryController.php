@@ -9,9 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
 
-    /**
-     * @Route("categories", name="category_list")
-     */
     public function categoryList(CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
@@ -19,9 +16,6 @@ class CategoryController extends AbstractController
         return $this->render("front/categories.html.twig", ['categories' => $categories]);
     }
 
-    /**
-     * @Route("category/{id}", name="category_show")
-     */
     public function categoryShow($id, CategoryRepository $categoryRepository)
     {
         $category = $categoryRepository->find($id);

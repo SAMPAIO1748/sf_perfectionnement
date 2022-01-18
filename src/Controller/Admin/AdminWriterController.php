@@ -13,9 +13,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminWriterController extends AbstractController
 {
-    /**
-     * @Route("admin/writers", name="admin_writer_list")
-     */
+
     public function adminListWriter(WriterRepository $writerRepository)
     {
         $writers = $writerRepository->findAll();
@@ -23,9 +21,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writers.html.twig", ['writers' => $writers]);
     }
 
-    /**
-     * @Route("admin/writer/{id}", name="admin_writer_show")
-     */
     public function adminShowWriter($id, WriterRepository $writerRepository)
     {
         $writer = $writerRepository->find($id);
@@ -33,9 +28,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writer.html.twig", ['writer' => $writer]);
     }
 
-    /**
-     * @Route("admin/update/writer/{id}", name="admin_update_writer")
-     */
     public function adminUpdateWriter(
         $id,
         WriterRepository $writerRepository,
@@ -61,9 +53,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    /**
-     * @Route("admin/create/writer/", name="admin_writer_create")
-     */
     public function adminWriterCreate(
         Request $request,
         EntityManagerInterface $entityManagerInterface
@@ -87,9 +76,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    /**
-     * @Route("admin/delete/writer/{id}", name="admin_delete_writer")
-     */
     public function adminDeleteWriter(
         $id,
         WriterRepository $writerRepository,

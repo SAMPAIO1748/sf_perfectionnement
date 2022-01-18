@@ -1,3 +1,51 @@
 admin_search:
   path: /admin/search
   controller: App\Controller\Admin\AdminWriterController::adminSearch
+
+admin_delete_writer:
+  path: admin/delete/writer/{id}
+  controller: App\Controller\Admin\AdminWriterController::adminDeleteWriter
+
+admin_writer_create:
+  path: admin/create/writer
+  controller: App\Controller\Admin\AdminWriterController::adminWriterCreate
+
+admin_update_writer:
+  path: admin/update/writer/{id}
+  controller: App\Controller\Admin\AdminWriterController::adminUpdateWriter
+
+admin_writer_show:
+  path: admin/writer/{id}
+  controller: App\Controller\Admin\AdminWriterController::adminShowWriter
+
+admin_writer_list:
+  path: admin/writers
+  controller: App\Controller\Admin\AdminWriterController::adminListWriter
+
+admin_article_list:
+  path: admin/articles
+  controller: App\Controller\Admin\AdminArticleController::articleList
+
+admin_article_show:
+  path: admin/article/{id}
+  controller: App\Controller\Admin\AdminArticleController::articleShow
+
+update_article:
+  path: admin/update/article/{id}
+  controller: App\Controller\Admin\AdminArticleController::articleUpdate
+
+create_article:
+  path: admin/create/article
+  controller: App\Controller\Admin\AdminArticleController::createArticle
+
+delete_article:
+  path: admin/delete/article/{id}
+  controller: App\Controller\Admin\AdminArticleController::deletArticle
+
+category_list:
+  path: categories
+  controller: App\Controller\Front\CategoryController::categoryList
+
+category_show:
+  path: category/{id}
+  controller: App\Controller\Front\CategoryController::categoryShow
