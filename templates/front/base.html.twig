@@ -7,6 +7,16 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<header>
+
+			<form action="{{ path('front_search') }}" method="get">
+
+				<input type="search" name="term" id="">
+				<input type="submit" value="Rechercher">
+
+			</form>
+
+		</header>
 		{% block main %}{% endblock %}
 	</body>
 </html>

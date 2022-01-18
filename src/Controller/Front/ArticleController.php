@@ -28,4 +28,11 @@ class ArticleController extends AbstractController
 
         return $this->render("front/article.html.twig", ['article' => $article]);
     }
+
+    /**
+     * @Route("search", name="front_search")
+     */
+    public function frontSearch()
+    {
+    }
 }
