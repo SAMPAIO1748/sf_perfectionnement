@@ -105,9 +105,7 @@ class AdminWriterController extends AbstractController
         return $this->redirectToRoute("admin_writer_list");
     }
 
-    /**
-     * @Route("/admin/search/", name="admin_search")
-     */
+
     public function adminSearch(WriterRepository $writerRepository, Request $request)
     {
         $term = $request->query->get('term');
