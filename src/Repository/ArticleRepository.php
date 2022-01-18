@@ -19,6 +19,27 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function searchByTerm($term)
+    {
+        // QueryBuilder permet de créer des requêtes SQL en PHP
+        $queryBuilder = $this->createQueryBuilder('article');
+
+        $query = $queryBuilder
+            ->select('article') // select sur la table article
+            ->leftJoin('article.category', 'category') // leftjoin sur la table category
+            ->leftJoin('article.writer', 'writer') // leftjoin sur la table writer
+            ->where('article.title LIKE :term') // WHERE de SQL
+            ->orWhere('article.content LIKE :term') // OR WHERE de SQL
+            ->orWhere('category.name LIKE :term')
+            ->orWhere('category.description LIKE :term')
+            ->orWhere('writer.name LIKE :term')
+            ->orWhere('writer.firstname LIKE :term')
+            ->setParameter('term', '%' . $term . '%') // On attribue le term renté et on le sécurise
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
