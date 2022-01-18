@@ -4,7 +4,6 @@ namespace App\Controller\Front;
 
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {
