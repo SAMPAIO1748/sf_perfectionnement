@@ -85,3 +85,23 @@ writer_list:
 writer_show:
   path: writer/{id}
   controller: App\Controller\Front\WriterController::writerShow
+
+create_image:
+  path: admin/create/image
+  controller: App\Controller\Admin\AdminImageController::createImage
+
+update_image:
+  path: admin/update/image/{id}
+  controller: App\Controller\Admin\AdminImageController::updateImage
+
+delete_image:
+  path: admin/delete/image/{id}
+  controller: App\Controller\Admin\AdminImageController::deleteImage
+
+image_list:
+  path: admin/images
+  controller: App\Controller\Admin\AdminImageController::imageList
+
+image_show:
+  path: admin/image/{id}
+  controller: App\Controller\Admin\AdminImageController::imageShow
