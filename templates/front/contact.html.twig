@@ -1,0 +1,16 @@
+{% extends "front/base.html.twig" %}
+
+{% block main %}
+
+	<h1>Contactez-nous</h1>
+
+	<form action="{{ path('message') }}" method="post">
+
+		<label for="message">Votre message</label>
+		<input type="text" name="message" id="message">
+		<input type="submit" value="Envoyer">
+
+	</form>
+
+
+{% endblock %}

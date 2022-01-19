@@ -105,3 +105,11 @@ image_list:
 image_show:
   path: admin/image/{id}
   controller: App\Controller\Admin\AdminImageController::imageShow
+
+contact:
+  path: contact
+  controller: App\Controller\Front\MessageController::contact
+
+message:
+  path: message
+  controller: App\Controller\Front\MessageController::message
