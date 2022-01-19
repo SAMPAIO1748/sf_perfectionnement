@@ -1,0 +1,10 @@
+{% extends "admin/base.html.twig" %}
+
+{% block main %}
+
+	{% for user in users %}
+		<h2>{{ user.firstname }}
+			{{ user.name }}</h2>
+	{% endfor %}
+
+{% endblock %}
