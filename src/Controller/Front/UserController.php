@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,7 +22,8 @@ class UserController extends AbstractController
     public function insertUser(
         Request $request,
         EntityManagerInterface $entityManagerInterface,
-        UserPasswordHasherInterface $userPasswordHasherInterface
+        UserPasswordHasherInterface $userPasswordHasherInterface,
+        MailerInterface $mailerInterface
     ) {
 
         $user = new User();
@@ -33,6 +36,9 @@ class UserController extends AbstractController
             $user->setRoles(["ROLE_USER"]);
 
             $plainPassword = $userForm->get('password')->getData();
+            $user_email = $userForm->get('email')->getData();
+            $user_name = $userForm->get('name')->getData();
+            $user_firstname =  $userForm->get('firstname')->getData();
 
             $hashedPassword = $userPasswordHasherInterface->hashPassword($user, $plainPassword);
 
@@ -41,6 +47,19 @@ class UserController extends AbstractController
             $entityManagerInterface->persist($user);
 
             $entityManagerInterface->flush();
+
+            $email = (new TemplatedEmail())
+                ->from('test@test.com')
+                ->to($user_email)
+                ->subject('Inscription')
+                ->htmlTemplate('front/mail.html.twig')
+                ->context([
+                    'name' => $user_name,
+                    'firstname' => $user_firstname
+                ]);
+
+            $mailerInterface->send($email);
+
 
             return $this->redirectToRoute('article_list');
         }
