@@ -5,11 +5,57 @@
 	{% for article in articles %}
 		{% if article.published %}
 			<h2>{{ article.title }}</h2>
-			<h3>{{ article.date | date('d/m/Y') }}</h3>
-			<h3>{{ article.category.name }}</h3>
-			<h4>{{ article.writer.name }}
-				{{ article.writer.firstname }}</h4>
+
+			<a href="{{ path("article_like", {'id' : article.id}) }}" class="btn btn-link js-likes">
+
+				{% if app.user and article.isLikeByUser(app.user) %}
+					<i class="fas fa-thumbs-up"></i>
+				{% else %}
+					<i class="far fa-thumbs-up"></i>
+				{% endif %}
+
+				<span class="js-likes">{{ article.likes | length }}</span>
+				<span class="js-label">J'aime</span>
+
+			</a>
 		{% endif %}
 	{% endfor %}
+{% endblock %}
+
+{% block js %}
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<script>
+		console.log('toto');
+function onClickLike(event) {
+
+event.preventDefault();
+
+const url = this.href;
+const spanCount = this.querySelector('span.js-likes');
+const icone = this.querySelector('i');
+
+axios.get(url).then(function (response) {
+spanCount.textContent = response.data.likes;
+if (icone.classList.contains('fas')) {
+icone.classList.replace('fas', 'far')
+} else {
+icone.classList.replace('far', 'fas')
+}
+}).catch(function (error) {
+if (error.response.status === 403) {
+window.alert("Vous devez vous connecter")
+} else {
+window.alert("Une erreur s'est produite")
+}
+})
+}
+
+
+document.querySelectorAll('a.js-likes').forEach(function (link) {
+link.addEventListener('click', onClickLike);
+})
+	</script>
 
 {% endblock %}
