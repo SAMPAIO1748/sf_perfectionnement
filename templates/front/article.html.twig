@@ -10,6 +10,122 @@
 		<h3>{{ article.category.name }}</h3>
 		<h4>{{ article.writer.name }}
 			{{ article.writer.firstname }}</h4>
+
+
+		<a href="{{ path("article_like", {'id' : article.id}) }}" class="btn btn-link js-likes">
+
+			{% if app.user and article.isLikeByUser(app.user) %}
+				<i class="fas fa-thumbs-up"></i>
+			{% else %}
+				<i class="far fa-thumbs-up"></i>
+			{% endif %}
+
+			<span class="js-likes">{{ article.likes | length }}</span>
+			<span class="js-label">J'aime</span>
+
+		</a>
+
+		<a href="{{ path("article_dislike", {'id' : article.id}) }}" class="btn btn-link js-dislikes">
+
+			{% if app.user and article.isDislikeByUser(app.user) %}
+				<i class="fas fa-thumbs-down"></i>
+			{% else %}
+				<i class="far fa-thumbs-down"></i>
+			{% endif %}
+			<span class="js-dislikes">{{ article.dislikes | length }}</span>
+			<span class="js-label">Je n'aime pas</span>
+		</a>
+
+
 	{% endif %}
+
+{% endblock %}
+
+{% block js %}
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<script>
+		function onClickLike(event) {
+
+event.preventDefault();
+
+const url = this.href;
+const spanCount = this.querySelector('span.js-likes');
+const icone = this.querySelector('i');
+
+axios.get(url).then(function (response) {
+spanCount.textContent = response.data.likes;
+if (icone.classList.contains('fas')) {
+icone.classList.replace('fas', 'far')
+} else {
+icone.classList.replace('far', 'fas')
+}
+if (response.data.message == "Like ajouté et dislike supprimé") {
+const spanCountDislike = document.querySelector('span.js-dislikes');
+const iconeDislike = document.querySelector('i.fa-thumbs-down');
+
+spanCountDislike.textContent = response.data.dislikes;
+
+if (iconeDislike.classList.contains('far')) {
+iconeDislike.classList.replace('far', 'fas')
+} else {
+iconeDislike.classList.replace('fas', 'far')
+}
+
+
+}
+}).catch(function (error) {
+if (error.response.status === 403) {
+window.alert("Vous devez vous connecter")
+} else {
+window.alert("Une erreur s'est produite")
+}
+})
+}
+
+function onClickDislike(event) {
+event.preventDefault();
+
+const urlDis = this.href;
+const spanCountDis = this.querySelector('span.js-dislikes');
+const iconeDis = this.querySelector('i');
+
+axios.get(urlDis).then(function (response) {
+spanCountDis.textContent = response.data.dislikes;
+
+if (iconeDis.classList.contains('fas')) {
+iconeDis.classList.replace('fas', 'far');
+} else {
+iconeDis.classList.replace('far', 'fas');
+}
+
+if (response.data.message == "like supprimé et dislike ajouté") {
+const spanCountLike = document.querySelector('span.js-likes');
+const iconeLike = document.querySelector('i.fa-thumbs-up');
+
+spanCountLike.textContent = response.data.likes;
+
+if (iconeLike.classList.contains('fas')) {
+iconeLike.classList.replace('fas', 'far');
+} else {
+iconeLike.classList.replace('far', 'far');
+}
+}
+
+}).catch(function (error) {
+if (error.response.status === 403) {
+window.alert("Vous devez vous connecter")
+} else {
+window.alert("Une erreur s'est produite")
+}
+})
+}
+
+
+document.querySelector('a.js-likes').addEventListener('click', onClickLike);
+
+document.querySelector('a.js-dislikes').addEventListener('click', onClickDislike);
+	</script>
 
 {% endblock %}
