@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ est obligatoire")
+     * @Assert\Length(
+     * min = 2,
+     * max = 20,
+     * minMessage="Le titre doit faire 2 caractères minimum",
+     * maxMessage="Le titre doit faire 20 caractères maximum"
+     * )
      */
     private $title;
 
